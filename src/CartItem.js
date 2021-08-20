@@ -1,6 +1,7 @@
 import React from 'react';
 
 class CartItem extends React.Component {
+    // added constructor for states
 	constructor() {
 		super();
 		this.state = {
@@ -12,10 +13,29 @@ class CartItem extends React.Component {
         // this.increaseQuantity = this.increaseQuantity.bind(this);
 	}
 
+    // used arrow for binding
     increaseQuantity = () =>{
-        console.log('this.state', this.state)
+        // setstate form 1
+        // this.setState({
+        //     quantity: this.state.quantity + 1
+        // });
+
+        // setState form 2 if prev state is required
+        this.setState(( prevState) => {
+            return{
+                quantity: prevState.quantity + 1
+            }
+        });
+    }
+
+    decreaseQuantity = () =>{
+        this.setState({
+            quantity: this.state.quantity - 1
+        })
     }
 	render() {
+
+        // rendering keys from states
 		const { price, title, quantity } = this.state;
 		return (
 			<div className="cart-item">
@@ -24,25 +44,26 @@ class CartItem extends React.Component {
 				</div>
 				<div className="right-block">
 					<div style={{ fontSize: 25 }}> {title}</div>
-					<div style={{ color: '#777' }}> {price}</div>
-					<div style={{ color: '#777' }}> {quantity}</div>
+					<div style={{ color: '#777' }}> Price:  {price} Rs</div>
+					<div style={{ color: '#777' }}> Quantity: {quantity}</div>
 					<div className="cart-item-actions">
 						{/* {Buttons} */}
 						<img
 							alt="increase"
 							className="action-icons"
-							src="https://img-premium.flaticon.com/png/128/1665/premium/1665629.png?token=exp=1629448442~hmac=e1906af09f7cedc1d05c514929a717ff"
+							src="https://image.flaticon.com/icons/png/512/992/992651.png"
                             onClick = {this.increaseQuantity}
 						/>
 						<img
 							alt="decrease"
 							className="action-icons"
 							src="https://image.flaticon.com/icons/png/512/66/66889.png"
+                            onClick = {this.decreaseQuantity}
 						/>
 						<img
 							alt="delete"
 							className="action-icons"
-							src="https://img-premium.flaticon.com/png/512/484/premium/484611.png?token=exp=1629448591~hmac=58538add3b06cbb030bd2768b0845967"
+							src="https://image.flaticon.com/icons/png/512/1214/1214428.png"
 						/>
 					</div>
 				</div>
@@ -51,6 +72,7 @@ class CartItem extends React.Component {
 	}
 }
 
+// styles for the given image
 const styles = {
 	image: {
 		height: 110,
