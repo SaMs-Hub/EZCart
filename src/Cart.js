@@ -1,78 +1,10 @@
 import React from 'react';
 import CartItem from './CartItem';
 
-class Cart extends React.Component {
-	// added constructor for states
-	constructor() {
-		super();
-		this.state = {
-			products: [
-				{
-					price: 1029,
-					title: 'mobile phone',
-					quantity: 1,
-					img: ' ',
-					id: 1
-				},
-				{
-					price: 9119,
-					title: 'smart phone',
-					quantity: 10,
-					img: ' ',
-					id: 2
-				},
-				{
-					price: 100029,
-					title: 'laptop',
-					quantity: 1,
-					img: ' ',
-					id: 3
-				}
-			]
-		};
-
-	}
-
-	handleIncreaseQuantity = (product) => {
-		console.log("increase quantity of ", product)
-		const { products} = this.state;
-		const index = products.indexOf(product);
-
-		products[index].quantity += 1;
-
-		this.setState({
-			products
-		})
-	}
-
-	handleDecreaseQuantity = (product) => {
-		console.log("decrease quantity of ", product)
-		const { products } = this.state;
-		const index = products.indexOf(product);
-
-		if (products[index].quantity === 0){
-			return ;
-		}
-		products[index].quantity -= 1
-
-		this.setState({
-			products
-		})
-	}
-
-	handleDeleteProduct = (id) => {
-		const { products } = this.state;
-
-		const items = products.filter((item) => item.id !== id);
-
-		this.setState({
-			products: items
-		})
-	}
+const Cart = ( props) => {
 
 	// showing cart items
-	render() {
-		const {products} = this.state;
+		const {products} = props;
 		return (
 			<div className="cart">
 				{products.map((product) => {
@@ -81,9 +13,9 @@ class Cart extends React.Component {
 					<CartItem 
 						product = { product} 
 						key= {product.id}
-						onIncreaseQuantity = {this.handleIncreaseQuantity}
-						onDecreaseQuantity = {this.handleDecreaseQuantity}
-						onDeleteProduct = {this.handleDeleteProduct}
+						onIncreaseQuantity =  {props.onIncreaseQuantity}
+						onDecreaseQuantity = {props.onDecreaseQuantity}
+						onDeleteProduct = {props.onDeleteProduct}
 					/>
 					)
 				})}
@@ -92,6 +24,6 @@ class Cart extends React.Component {
             
 		);
 	}
-}
+
 
 export default Cart;
