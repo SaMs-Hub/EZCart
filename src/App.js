@@ -41,6 +41,8 @@ class App extends React.Component {
 
 		this.db
 		  .collection('Products')
+		//   .where('price','>', 999)
+		.orderBy('price', "desc")
 		  .onSnapshot((snapshot) => {
 			console.log(snapshot);
 
@@ -67,11 +69,25 @@ class App extends React.Component {
 		const { products} = this.state;
 		const index = products.indexOf(product);
 
-		products[index].quantity += 1;
+		// products[index].quantity += 1;
 
-		this.setState({
-			products
-		})
+		// this.setState({
+		// 	products
+		// })
+
+		const docRef = this.db.collection('Products').doc(products[index].id);
+
+		docRef
+		 .update({
+			 quantity: products[index].quantity + 1
+
+		 })
+		 .then(() => {
+			 console.log("Updated Quantity")
+		 })
+		 .catch((error) => {
+			 console.log("Error", error)
+		 })
 	}
 
 	handleDecreaseQuantity = (product) => {
@@ -82,21 +98,45 @@ class App extends React.Component {
 		if (products[index].quantity === 0){
 			return ;
 		}
-		products[index].quantity -= 1
+		// products[index].quantity -= 1
 
-		this.setState({
-			products
-		})
+		// this.setState({
+		// 	products
+		// })
+		const docRef = this.db.collection('Products').doc(products[index].id);
+
+		docRef
+		 .update({
+			 quantity: products[index].quantity - 1
+
+		 })
+		 .then(() => {
+			 console.log("Changed Quantity")
+		 })
+		 .catch((error) => {
+			 console.log("Error", error)
+		 })
 	}
 
 	handleDeleteProduct = (id) => {
 		const { products } = this.state;
 
-		const items = products.filter((item) => item.id !== id);
+		// const items = products.filter((item) => item.id !== id);
 
-		this.setState({
-			products: items
+		// // this.setState({
+		// // 	products: items
+		// // })
+		const docRef = this.db.collection('Products').doc(id);
+
+		docRef
+		 .delete()
+		 .then(() => {
+			console.log("Deleted")
 		})
+		.catch((error) => {
+			console.log("Error", error)
+		})
+		
 	}
 
   getCartCount = () => {
@@ -146,7 +186,6 @@ class App extends React.Component {
     return (
       <div className="App">
         < Navbar  count= {this.getCartCount()}/>
-		<button onClick={this.addProduct} style={{padding: 20, fontSize: 20}}> Add a Product</button>
         < Cart
           products = { products }
           onIncreaseQuantity = {this.handleIncreaseQuantity}
