@@ -2,6 +2,12 @@
 EZCart is an ReactJS based Web app. 
 <h3>Developed using the likes of EJS, EZCart is your online shopping cart that also allows you to add, update and delete your products!! </h3>
 
+![EZCart](https://user-images.githubusercontent.com/76864645/130473815-9829fc9f-88b2-4997-8de7-f19d861291e6.jpg)
+
+<h4> It can be Accessed using, </h4>
+https://ezcart-c29d0.web.app/
+  
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
